@@ -39,15 +39,31 @@ class Pelicula(models.Model):
     actores = models.ManyToManyField(Actor)
     año_realizacion = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
-    puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Puntaje general con todas las valoraciones
     
+    valoracion = models.IntegerField(default = 0) #Cantidad de votantes
+    sumatoria = models.IntegerField(default = 0) #Voy sumando todas las puntajes
+    puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
+
     class Meta():
         ordering = ['nombre']
-    
-    def save(self, punt, peli):
-        list = Pelicula.objects.filter(Pelicula = peli)
-        for lista in list:
-            super().save(puntaje = punt)  
+
+    @classmethod
+    def save(self, punt):
+        valor = self.valoracion + 1
+        sumo = self.sumatoria + punt
+        prom = sumo / valor
+        self.valoracion = valor
+        self.sumatoria = sumo
+        self.puntaje = round(prom)
+        super().save()
+
+
+    #Una manera
+    #def save(self, punt, peli):
+    #    list = Pelicula.objects.filter(Pelicula = peli)
+    #    for lista in list:
+    #        super().save(puntaje = punt)  
+
 
     def __get_actores(self):
         list = ""
@@ -71,15 +87,20 @@ class Reseña(models.Model):
     class Meta():
         ordering = ['pelicula']
 
-    def get_actualizar_puntaje(self, id):
-        valoraciones=0
-        puntajes=0
-        lista_peliculas = Reseña.objects.filter(pelicula=id)
-        for lista in lista_peliculas:
-            valoraciones+=1
-            puntajes+=lista.puntaje
-        promedio = round(puntajes/valoraciones)
-        Pelicula.save(promedio, self.pelicula)
+    #Modo paso solo el puntaje
+    def __init__(self):
+        Pelicula.save(self.puntaje)
+
+    #Una manera
+    #def get_actualizar_puntaje(self, id):
+    #    valoraciones=0
+    #    puntajes=0
+    #    lista_peliculas = Reseña.objects.filter(pelicula=id)
+    #    for lista in lista_peliculas:
+    #        valoraciones+=1
+    #        puntajes+=lista.puntaje
+    #    promedio = round(puntajes/valoraciones)
+    #    Pelicula.save(promedio, self.pelicula)
 
     def __str__(self):
         return '{0} {1} {2} {3} {4}'.format(self.pelicula, self.comentario, self.puntaje, self.mail, self.aprobado)
