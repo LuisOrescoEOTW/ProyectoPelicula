@@ -20,3 +20,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    #Obtener las 12 mejores peliculas poner dentro del manager.
+    #peliculas.object

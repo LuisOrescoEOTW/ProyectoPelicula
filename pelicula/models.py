@@ -1,10 +1,4 @@
-from ast import Delete
-from asyncio.proactor_events import _ProactorDuplexPipeTransport
-from multiprocessing.sharedctypes import Value
-from string import punctuation
 from django.db import models
-from django.conf import settings
-from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Director(models.Model):
@@ -39,30 +33,34 @@ class Pelicula(models.Model):
     actores = models.ManyToManyField(Actor)
     año_realizacion = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
-    
-    valoracion = models.IntegerField(default = 0) #Cantidad de votantes
-    sumatoria = models.IntegerField(default = 0) #Voy sumando todas las puntajes
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
 
+    #valoracion = models.IntegerField(default = 0) #Cantidad de votantes
+    #sumatoria = models.IntegerField(default = 0) #Voy sumando todas las puntajes
+    
+
     class Meta():
-        ordering = ['nombre']
+        ordering = ['puntaje']
 
-    @classmethod
-    def save(self, punt):
-        valor = self.valoracion + 1
-        sumo = self.sumatoria + punt
-        prom = sumo / valor
-        self.valoracion = valor
-        self.sumatoria = sumo
-        self.puntaje = round(prom)
-        super().save()
+    #Obtener las 12 mejores peliculas poner dentro del manager.
+    #peliculas.object
+
+    #@classmethod
+    #def actualizar(self, punt):
+    #    valor = self.valoracion + 1
+    #    sumo = self.sumatoria + punt
+    #    prom = sumo / valor
+    #    self.valoracion = valor
+    #    self.sumatoria = sumo
+    #    self.puntaje = round(prom)
+    #    super().save()
 
 
-    #Una manera
-    #def save(self, punt, peli):
-    #    list = Pelicula.objects.filter(Pelicula = peli)
-    #    for lista in list:
-    #        super().save(puntaje = punt)  
+    #La manera correcta
+    def actualizar(self, promedio, peli):
+        list = Pelicula.objects.filter(Pelicula = peli)
+        for lista in list:
+            super().save(puntaje = promedio)  
 
 
     def __get_actores(self):
@@ -87,20 +85,21 @@ class Reseña(models.Model):
     class Meta():
         ordering = ['pelicula']
 
-    #Modo paso solo el puntaje
-    def __init__(self):
-        Pelicula.save(self.puntaje)
+    #Otra manera que no va
+    # #Modo paso solo el puntaje
+    #def __init__(self):
+    #    Pelicula.actualizar(self.puntaje)
 
     #Una manera
-    #def get_actualizar_puntaje(self, id):
-    #    valoraciones=0
-    #    puntajes=0
-    #    lista_peliculas = Reseña.objects.filter(pelicula=id)
-    #    for lista in lista_peliculas:
-    #        valoraciones+=1
-    #        puntajes+=lista.puntaje
-    #    promedio = round(puntajes/valoraciones)
-    #    Pelicula.save(promedio, self.pelicula)
+    def get_actualizar_puntaje(self, id):
+        valoraciones=0
+        puntajes=0
+        lista_peliculas = Reseña.objects.filter(pelicula=id)
+        for lista in lista_peliculas:
+            valoraciones+=1
+            puntajes+=lista.puntaje
+        promedio = round(puntajes/valoraciones)
+        Pelicula.actualizar(promedio, self.pelicula)
 
     def __str__(self):
         return '{0} {1} {2} {3} {4}'.format(self.pelicula, self.comentario, self.puntaje, self.mail, self.aprobado)

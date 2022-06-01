@@ -1,0 +1,11 @@
+Preguntas en Models:
+
+1) Cada vez que agrego una reseña se tiene que actualizar la puntuación de la pelicula.
+Reseña -> get_actualizar_puntaje
+Pelicula -> actualizar
+
+2) Class Pelicula
+	__get actores
+	__get director 
+
+3) Para obtener las 12 peliculas lo pongo dentro de manage.py
