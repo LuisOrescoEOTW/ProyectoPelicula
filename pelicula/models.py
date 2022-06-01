@@ -35,10 +35,7 @@ class Pelicula(models.Model):
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
 
-    #valoracion = models.IntegerField(default = 0) #Cantidad de votantes
-    #sumatoria = models.IntegerField(default = 0) #Voy sumando todas las puntajes
     
-
     class Meta():
         ordering = ['puntaje']
 
