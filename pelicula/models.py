@@ -43,7 +43,7 @@ class Pelicula(models.Model):
     #peliculas.object
 
     #@classmethod
-    #def actualizar(self, punt):
+     #def actualizar(self, punt):
     #    valor = self.valoracion + 1
     #    sumo = self.sumatoria + punt
     #    prom = sumo / valor
@@ -54,11 +54,24 @@ class Pelicula(models.Model):
 
 
     #La manera correcta
-    def actualizar(self, promedio, peli):
-        list = Pelicula.objects.filter(Pelicula = peli)
-        for lista in list:
-            super().save(puntaje = promedio)  
+    #def actualizar(self, promedio, peli):
+    #    list = Pelicula.objects.filter(Pelicula = peli)
+    #    for lista in list:
+    #        super().save(puntaje = promedio)  
 
+    def actualizar(self):
+        aux1 = 0
+        aux2 = 0
+        a = self.Reseña_set.all()
+        self.save()
+
+        for i in self.a():
+            aux1+=i
+            aux2+=1
+        
+        resultado = 0 if aux1==0 else 1(aux1/(aux2))
+        self.puntaje = round(resultado)
+        self.save
 
     def __get_actores(self):
         list = ""
@@ -82,21 +95,25 @@ class Reseña(models.Model):
     class Meta():
         ordering = ['pelicula']
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.pelicula.actualizar()
+
     #Otra manera que no va
     # #Modo paso solo el puntaje
     #def __init__(self):
     #    Pelicula.actualizar(self.puntaje)
 
     #Una manera
-    def get_actualizar_puntaje(self, id):
-        valoraciones=0
-        puntajes=0
-        lista_peliculas = Reseña.objects.filter(pelicula=id)
-        for lista in lista_peliculas:
-            valoraciones+=1
-            puntajes+=lista.puntaje
-        promedio = round(puntajes/valoraciones)
-        Pelicula.actualizar(promedio, self.pelicula)
+    #def get_actualizar_puntaje(self, id):
+    #    valoraciones=0
+    #    puntajes=0
+    #    lista_peliculas = Reseña.objects.filter(pelicula=id)
+    #    for lista in lista_peliculas:
+    #        valoraciones+=1
+    #        puntajes+=lista.puntaje
+    #    promedio = round(puntajes/valoraciones)
+    #    Pelicula.actualizar(promedio, self.pelicula)
 
     def __str__(self):
         return '{0} {1} {2} {3} {4}'.format(self.pelicula, self.comentario, self.puntaje, self.mail, self.aprobado)
