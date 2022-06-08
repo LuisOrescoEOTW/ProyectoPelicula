@@ -1,3 +1,4 @@
+#ORM: Object Relational Mapping
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -12,8 +13,9 @@ class Director(models.Model):
         ordering = ['nombre']
 
     def __str__(self):
-        return '{0} {1} {2} {3} {4}'.format(self.nombre, self.nacionalidad, self.foto, self.año_nacimiento, self.resumen)
-
+        #return '{0} {1} {2} {3} {4}'.format(self.nombre, self.nacionalidad, self.foto, self.año_nacimiento, self.resumen)
+        return '{0}'.format(self.nombre)
+        
 class Actor(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     nacionalidad = models.CharField(max_length=30)
@@ -25,7 +27,7 @@ class Actor(models.Model):
         ordering = ['nombre']
 
     def __str__(self):
-        return '{0} {1} {2} {3} {4}'.format(self.nombre, self.nacionalidad, self.foto, self.año_nacimiento, self.resumen)
+        return '{0}'.format(self.nombre)
 
 class Pelicula(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
