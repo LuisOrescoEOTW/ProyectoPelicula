@@ -34,30 +34,9 @@ class Pelicula(models.Model):
     año_realizacion = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
-
-    
+        
     class Meta():
         ordering = ['puntaje']
-
-    #Obtener las 12 mejores peliculas poner dentro del manager.
-    #peliculas.object
-
-    #@classmethod
-     #def actualizar(self, punt):
-    #    valor = self.valoracion + 1
-    #    sumo = self.sumatoria + punt
-    #    prom = sumo / valor
-    #    self.valoracion = valor
-    #    self.sumatoria = sumo
-    #    self.puntaje = round(prom)
-    #    super().save()
-
-
-    #La manera correcta
-    #def actualizar(self, promedio, peli):
-    #    list = Pelicula.objects.filter(Pelicula = peli)
-    #    for lista in list:
-    #        super().save(puntaje = promedio)  
 
     def actualizar(self):
         aux1 = 0
@@ -98,22 +77,6 @@ class Reseña(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.pelicula.actualizar()
-
-    #Otra manera que no va
-    # #Modo paso solo el puntaje
-    #def __init__(self):
-    #    Pelicula.actualizar(self.puntaje)
-
-    #Una manera
-    #def get_actualizar_puntaje(self, id):
-    #    valoraciones=0
-    #    puntajes=0
-    #    lista_peliculas = Reseña.objects.filter(pelicula=id)
-    #    for lista in lista_peliculas:
-    #        valoraciones+=1
-    #        puntajes+=lista.puntaje
-    #    promedio = round(puntajes/valoraciones)
-    #    Pelicula.actualizar(promedio, self.pelicula)
 
     def __str__(self):
         return '{0} {1} {2} {3} {4}'.format(self.pelicula, self.comentario, self.puntaje, self.mail, self.aprobado)
