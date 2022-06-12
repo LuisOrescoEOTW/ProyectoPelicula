@@ -1,6 +1,7 @@
 #ORM: Object Relational Mapping
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+#from django.utils.safestring import mark_safe
 
 class Director(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
@@ -19,7 +20,8 @@ class Director(models.Model):
 class Actor(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     nacionalidad = models.CharField(max_length=30)
-    foto = models.ImageField()
+    #avatar = models.ImageField('Foto', upload_to='fotos')
+    foto = models.ImageField(upload_to='imagenes')
     año_nacimiento = models.DateField()
     resumen = models.CharField(max_length=300)
     
@@ -28,6 +30,11 @@ class Actor(models.Model):
 
     def __str__(self):
         return '{0}'.format(self.nombre)
+    
+    #def admin_photo(self):
+    #    return mark_safe('<img scr={} width="100" />').format(self.foto.url)
+    #admin_photo.short_description = 'Image'
+    #admin_photo.allow_tags = True
 
 class Pelicula(models.Model):
     nombre = models.CharField(max_length=30, blank=False)

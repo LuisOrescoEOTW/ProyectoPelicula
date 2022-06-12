@@ -9,3 +9,7 @@ Pelicula -> actualizar
 	__get director 
 
 3) Para obtener las 12 peliculas lo pongo dentro de manage.py
+
+4) Admin: se puede utilizar el que viene por default pero hay que personalizarlo.
+
+5) Ver de agregar en el menu principal acceso directo al admin.

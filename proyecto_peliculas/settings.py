@@ -31,14 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'pelicula'
+    'django.contrib.staticfiles',    
+    'pelicula',
+    'colorfield'
 ]
+
+X_FRAME_OPTION='SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,4 +125,8 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DSEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#MEDIA_URL = '/imagenes/'
+#MEDIA_ROOT = BASE_DIR / 'imagenes'
+
