@@ -1,12 +1,16 @@
 #ORM: Object Relational Mapping
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-#from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe
+from django.urls import reverse
+from django.contrib import admin
+
+
 
 class Director(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     nacionalidad = models.CharField(max_length=30)
-    foto = models.ImageField()
+    foto = models.ImageField(upload_to='Directores')
     año_nacimiento = models.DateField()
     resumen = models.CharField(max_length=300)
 
@@ -14,14 +18,17 @@ class Director(models.Model):
         ordering = ['nombre']
 
     def __str__(self):
-        #return '{0} {1} {2} {3} {4}'.format(self.nombre, self.nacionalidad, self.foto, self.año_nacimiento, self.resumen)
         return '{0}'.format(self.nombre)
+    
+    def admin_foto(self):
+        return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))
+    admin_foto.short_description = 'Foto'
+    admin_foto.allow_tags = True
         
 class Actor(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     nacionalidad = models.CharField(max_length=30)
-    #avatar = models.ImageField('Foto', upload_to='fotos')
-    foto = models.ImageField(upload_to='imagenes')
+    foto = models.ImageField(upload_to='Actores')
     año_nacimiento = models.DateField()
     resumen = models.CharField(max_length=300)
     
@@ -31,47 +38,55 @@ class Actor(models.Model):
     def __str__(self):
         return '{0}'.format(self.nombre)
     
-    #def admin_photo(self):
-    #    return mark_safe('<img scr={} width="100" />').format(self.foto.url)
-    #admin_photo.short_description = 'Image'
-    #admin_photo.allow_tags = True
+    def admin_foto(self):
+        return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))
+    admin_foto.short_description = 'Foto'
+    admin_foto.allow_tags = True
+    
 
 class Pelicula(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     resumen = models.CharField(max_length=100)
+    foto = models.ImageField(upload_to='Peliculas')
     actores = models.ManyToManyField(Actor)
     año_realizacion = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
-        
+
+    def admin_foto(self):
+        return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))
+    admin_foto.short_description = 'Foto'
+    admin_foto.allow_tags = True
+    
+    def actuaciones(self):
+        return "; ".join([str(p) for p in self.actores.all()])
+    actuaciones.short_description = 'actor/es'
+
     class Meta():
-        ordering = ['puntaje']
+        ordering = ['-puntaje', 'nombre'] #Orden descendente por puntaje
 
     def actualizar(self):
         aux1 = 0
         aux2 = 0
-        a = self.Reseña_set.all()
+        a = self.reseña_set.all()
+        for i in a:
+            aux1+=1
+            aux2+=i.puntaje        
+        resultado=0 if(aux2==0) else (aux2/aux1)
+        self.puntaje = round(resultado)
         self.save()
 
-        for i in self.a():
-            aux1+=i
-            aux2+=1
-        
-        resultado = 0 if aux1==0 else 1(aux1/(aux2))
-        self.puntaje = round(resultado)
-        self.save
+    
+    #Ordenar por puntaje y tomar solo 12
+    def get_ranking(self):
+        return self.order_by('-puntaje')[:12]
 
-    def __get_actores(self):
-        list = ""
-        for actor in self.actores.all():
-            list += Actor.nombre +"; "
-        return list
 
     def __get_director(self):
         return Director.nombre
 
     def __str__(self):
-        return '{0} {1} {2} {3} {4}'.format(self.nombre, self.resumen, self.actores, self.año_realizacion, self.director)
+        return '{0}'.format(self.nombre)
 
 class Reseña(models.Model):
     pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
@@ -84,11 +99,15 @@ class Reseña(models.Model):
         ordering = ['pelicula']
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+        super(Reseña, self).save(*args, **kwargs)
+        self.pelicula.actualizar()
+
+    def actualization(self, *args, **kwargs):
+        super(Reseña, self).save(*args, **kwargs)
         self.pelicula.actualizar()
 
     def __str__(self):
-        return '{0} {1} {2} {3} {4}'.format(self.pelicula, self.comentario, self.puntaje, self.mail, self.aprobado)
+        return '{0}'.format(self.pelicula)
 
 class Administrador(models.Model):    
     nombre = models.CharField(max_length = 300, blank = False)
