@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .models import Actor
+
+from .models import Director, Actor, Pelicula, Reseña
 
 # Create your views here.
 
-def home(request):
-    actoresListados = Actor.objects.all()
-    return render(request, "gestionActores.html", {"actores": actoresListados})
+
+def pelis(request):
+    peliculasListados = Pelicula.objects.all()
+    return render(request, "base.html", {"peliculas": peliculasListados})

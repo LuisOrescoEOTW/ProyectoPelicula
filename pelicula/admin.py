@@ -1,8 +1,6 @@
 from django.contrib import admin
 from .models import Director, Actor, Pelicula, Reseña
 
-
-
 # Register your models here.
 
 class ActorAdmin(admin.ModelAdmin):
