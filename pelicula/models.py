@@ -5,8 +5,6 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 from django.contrib import admin
 
-
-
 class Director(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
     nacionalidad = models.CharField(max_length=30)
@@ -42,7 +40,6 @@ class Actor(models.Model):
         return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))
     admin_foto.short_description = 'Foto'
     admin_foto.allow_tags = True
-    
 
 class Pelicula(models.Model):
     nombre = models.CharField(max_length=30, blank=False)
