@@ -72,19 +72,13 @@ class Pelicula(models.Model):
         resultado=0 if(aux2==0) else (aux2/aux1)
         self.puntaje = round(resultado)
         self.save()
-
-    
-    #Ordenar por puntaje y tomar solo 12
-    def get_ranking(self):
-        return self.order_by('-puntaje')[:12]
-
-
+        
     def __get_director(self):
         return Director.nombre
 
     def __str__(self):
         return '{0}'.format(self.nombre)
-
+    
 class Reseña(models.Model):
     pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
     comentario = models.CharField(max_length=300)
