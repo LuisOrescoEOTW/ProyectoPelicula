@@ -10,7 +10,6 @@
 <nav class="navbar navbar-dark bg-dark">
     <ul class="nav navbar-nav">
         <li class="nav-item">
-<<<<<<< HEAD
           <li class="nav-item">
             <a class="nav-link" href="/">Peliculas <<<</a>                       
         </li>
@@ -19,25 +18,11 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="directores">Directores</a>
-=======
-            <a class="nav-link" href="/">Pelicula aca estamos</a>            
-        </li>
-        <li class="nav-item">
-            
-            <a class="nav-link" href= "">Actor</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Director</a>
->>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
         </li> 
     </ul>
     <body>        
         <img src="/Imagenes/Sitio/medio.jpg" with="130" height="100" class="img-fluid" alt="Responsive image">
     </body>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
     <form class="form-inline my-1 my-lg-3" method="GET">
       <div class="input-group">
           <input type="text" class="form-control mr-sm-2" placeholder="Pelicula o Puntaje" name="buscar" value="">
@@ -48,9 +33,7 @@
           </div>
       </div>
     </form>
-
 </nav>    
-
 
 <div class="modal fade" id="ModalComentar" tabindex="-1" aria-labelledby="ModalComentarLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -60,23 +43,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            
+          <form>            
             <div class="mb-3">
               <label for="puntuar-name" class="col-form-label">Puntuar:</label>
               <input type="text" class="form-control" id="puntuar-name">
-            </div>
-            
+            </div>            
             <div class="mb-3">
               <label for="comentario-text" class="col-form-label">Comentario:</label>
               <textarea class="form-control" id="comentario-text"></textarea>
-            </div>
-            
+            </div>            
             <div class="mb-3">
-              <label for="puntuar-name" class="col-form-label">Puntuar:</label>
+              <label for="puntuar-name" class="col-form-label">E-mail:</label>
               <input type="text" class="form-control" id="puntuar-name">@gmail.com
             </div>
-
           </form>
         </div>
         <div class="modal-footer">
@@ -121,15 +100,9 @@
                         <small class="card text-white bg-dark">Actores: {{p.actuaciones}}</small>
                         <small class="card text-white bg-dark">Director: {{p.director}}</small>
                         <small class="card text-white bg-dark">Año realización: {{p.año_realizacion}}</small>
-<<<<<<< HEAD
-                        <h4 class="card text-white bg-dark">Puntaje: {{p.puntaje}}</h4>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>      
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ModalComentar">Comentar</button>
-=======
                         <h4 class="card text-white bg-dark">Puntaje: {{p.puntaje}}</h4>                            
-                        <button type="button" class="btn btn-warning btn-sm">Comentar</button>
-                        <button type="button" class="btn btn-primary btn-sm">Críticas</button>                   
->>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ModalComentar">Comentar</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
                     </div>
                 </div>
             </div>
@@ -137,28 +110,6 @@
     </div>
 </div>     
 
-<<<<<<< HEAD
-<div class="container">
-  <div class="row">
-      <p class="card-text"></p>
-      {% for s in reseñas%}    
-          <div class="col-sm-4 col-md-3">
-              <div class="card border-dark mb-2">
-                  <div class="card-body">                      
-                      <small class="card text-white bg-dark">Comentario: {{s.comentario}}</small>
-                      <small class="card text-white bg-dark">Puntaje: {{s.puntaje}}</small>
-                  
-                  </div>
-              </div>
-          </div>
-      {% endfor %}
-  </div>
-</div> 
-
-
-
-=======
->>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
 <body style="background-color:grey">    
 </body>
 
