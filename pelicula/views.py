@@ -4,14 +4,20 @@ from .models import Director, Actor, Pelicula, Reseña
 from django.http import HttpResponse
 
 
+
+
 # Create your views here.
 
+<<<<<<< HEAD
 #def index(request):
  #   return render(request, 'base.html')
 
 def resen(request):
     reseñasListados = Reseña.objects.all()            
     return render(request, "base.html", {"resenias": reseñasListados})
+=======
+
+>>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
 
 def pelis(request):
     busqueda = request.GET.get("buscar")
@@ -20,6 +26,7 @@ def pelis(request):
         peliculasListados = Pelicula.objects.filter(
             Q(nombre__icontains = busqueda)|
             Q(puntaje__icontains = busqueda)
+<<<<<<< HEAD
         ).distinct()    
     return render(request, "base.html", {"peliculas": peliculasListados})
 
@@ -46,4 +53,19 @@ def directore(request):
         ).distinct()
     return render(request, "directores.html", {"directores": directoresListados})
 
+=======
+        ).distinct()
+    return render(request, "base.html", {"peliculas": peliculasListados})
+
+def actore(request):
+    busqueda = request.GET.get("buscar")
+    actoresListados = Actor.objects.all()
+    if busqueda:
+        actoresListados = Actor.objects.filter(
+            Q(nombre__icontains = busqueda)|
+            Q(nacionalidad__icontains = busqueda)
+        ).distinct()
+    return render(request, "actores.html", {"actores": actoresListados})
+
+>>>>>>> 8aec32f5109360c6f26f0949c02baea6c59c606c
 
