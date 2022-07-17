@@ -58,6 +58,7 @@ class Pelicula(models.Model):
     def actuaciones(self):
         return "; ".join([str(p) for p in self.actores.all()])
     actuaciones.short_description = 'actor/es'
+    
 
     class Meta():
         ordering = ['-puntaje', 'nombre'] #Orden descendente por puntaje

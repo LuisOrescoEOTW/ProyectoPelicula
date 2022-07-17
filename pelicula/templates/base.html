@@ -28,7 +28,7 @@
           <input type="text" class="form-control mr-sm-2" placeholder="Pelicula o Puntaje" name="buscar" value="">
           <div class="input-group-append">
             <button class="btn btn-outline-success my-1 my-sm-0" type="submit">Buscar
-                <i class="fas fa-search fa-sm"></i>
+                <i class="fas fa-search"></i>
             </button>
           </div>
       </div>
@@ -53,8 +53,8 @@
               <textarea class="form-control" id="comentario-text"></textarea>
             </div>            
             <div class="mb-3">
-              <label for="puntuar-name" class="col-form-label">E-mail:</label>
-              <input type="text" class="form-control" id="puntuar-name">@gmail.com
+              <label for="puntuar-name" class="col-form-label">@ e-mail:</label>
+              <input type="text" class="form-control" id="puntuar-name">
             </div>
           </form>
         </div>
@@ -73,19 +73,26 @@
           <h5 class="modal-title" id="ModalCriticasLabel">.: Críticas :.</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
         <div class="modal-body">
-          Muestro las críticas
-          {% for g in resenias %}              
-            <small>Críticas: {{g.comentario}}</small>
+          {% for g in resenias %}          
+            <div class="modal-body">
+              {{g.pelicula}}
+              {{g.comentario}}
+              {{g.puntaje}}
+              {{g.mail}}
+            </div>
           {% endfor %}
-          fin criticas
-        </div>
+          </div>
+        
         <div class="modal-footer">                    
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
 </div>
+
+<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
 
 <div class="container">
     <div class="row">
