@@ -33,38 +33,10 @@
           </div>
       </div>
     </form>
+    <button type="button" class="btn btn-outline-success my-1 my-sm-0">
+      <a href="{% url 'form' %}">Comentar Click aqui!</a>
+    </button>
 </nav>    
-
-<div class="modal fade" id="ModalComentar" tabindex="-1" aria-labelledby="ModalComentarLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalComentarLabel">.: Comentar Película :.</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>            
-            <div class="mb-3">
-              <label for="puntuar-name" class="col-form-label">Puntuar:</label>
-              <input type="text" class="form-control" id="puntuar-name">
-            </div>            
-            <div class="mb-3">
-              <label for="comentario-text" class="col-form-label">Comentario:</label>
-              <textarea class="form-control" id="comentario-text"></textarea>
-            </div>            
-            <div class="mb-3">
-              <label for="puntuar-name" class="col-form-label">@ e-mail:</label>
-              <input type="text" class="form-control" id="puntuar-name">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Enviar Comentario</button>
-          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>          
-        </div>
-      </div>
-    </div>
-</div>
 
 <div class="modal fade" id="ModalCriticas" tabindex="-1" aria-labelledby="ModalCriticasLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -73,7 +45,7 @@
           <h5 class="modal-title" id="ModalCriticasLabel">.: Críticas :.</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
+        
         <div class="modal-body">
           {% for g in resenias %}          
             <div class="modal-body">
@@ -92,8 +64,6 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
-
 <div class="container">
     <div class="row">
         <p class="card-text"></p>
@@ -107,15 +77,17 @@
                         <small class="card text-white bg-dark">Actores: {{p.actuaciones}}</small>
                         <small class="card text-white bg-dark">Director: {{p.director}}</small>
                         <small class="card text-white bg-dark">Año realización: {{p.año_realizacion}}</small>
-                        <h4 class="card text-white bg-dark">Puntaje: {{p.puntaje}}</h4>                            
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ModalComentar">Comentar</button>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
+                        <h4 class="card text-white bg-dark">Puntaje: {{p.puntaje}}</h4>
+                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
+                        <button type="button" class="btn btn-warning ">
+                          <a href="{% url 'form' %}">Comentar</a>
+                        </button>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-</div>     
+</div>
 
 <body style="background-color:grey">    
 </body>

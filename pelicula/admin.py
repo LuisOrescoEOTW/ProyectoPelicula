@@ -30,5 +30,3 @@ admin.site.register(Actor, ActorAdmin)
 admin.site.register(Director, DirectorAdmin)
 admin.site.register(Pelicula, PeliculaAdmin)
 admin.site.register(Reseña, ReseñaAdmin)
-
-
