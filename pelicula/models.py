@@ -49,6 +49,7 @@ class Pelicula(models.Model):
     año_realizacion = models.DateField()
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
+    
 
     def admin_foto(self):
         return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q
+
+import pelicula
 from .models import Director, Actor, Pelicula, Reseña
 #from django.http import HttpResponse
 from django.contrib import messages
@@ -12,8 +14,7 @@ def my_form(request):
       if form.is_valid():
         form.save()
         form = MyForm()
-        messages.success(request, "Guardado correctamente")
-        
+        messages.success(request, "Guardado correctamente")        
     else:
         form = MyForm()    
   except: 
@@ -34,6 +35,8 @@ def pelis(request):
     #    reseniasListados = Reseña.objects.filter(
     #        Q(pelicula__icontains = buscar)
     #    ).distinct()
+    
+    #reseniasListados = Reseña.objects.select_related().filter(pelicula__Id = peliculasListados)
     
     reseniasListados = Reseña.objects.all()
     

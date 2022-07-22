@@ -20,6 +20,7 @@
             <a class="nav-link" href="directores">Directores</a>
         </li> 
     </ul>
+
     <body>        
         <img src="/Imagenes/Sitio/medio.jpg" with="130" height="100" class="img-fluid" alt="Responsive image">
     </body>
@@ -32,68 +33,59 @@
             </button>
           </div>
       </div>
-    </form>
-    <button type="button" class="btn btn-outline-success my-1 my-sm-0">
-      <a href="{% url 'form' %}">Comentar Click aqui!</a>
-    </button>
+    </form>    
+    <a type="button" class="btn btn-danger" href="form">Comentar Click aqui!</a>
+    
 </nav>    
 
-<div class="modal fade" id="ModalCriticas" tabindex="-1" aria-labelledby="ModalCriticasLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalCriticasLabel">.: Críticas :.</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <div class="modal-body">
-          {% for g in resenias %}          
-            <div class="modal-body">
-              {% if g.aprobado == True %}
-                {{g.pelicula}}
-                {{g.comentario}}
-                {{g.puntaje}}
-                {{g.mail}}
-              {% endif %}
+<div class="container">
+  <div class="row">
+    <p class="card-text"></p>
+    {% for p in peliculas%}
+      <div class="col-sm-4 col-md-3">
+        <div class="card border-dark mb-2">
+          <img class="card-img-top" src="{{ p.foto.url }}" alt="Card image cap">
+          <div class="card-body text-center bg-black">
+            <h4 class="card text-danger bg-black text-success text-center">{{p.nombre}}</h4>
+            <h4 class="card text-white bg-black text-success text-center">Puntaje: {{p.puntaje}}</h4>                        
+              
+              <details>
+                <summary type="button" class="btn btn-primary btn-lg active" role="button" >Detalle</summary>
+                <p>                       
+                  <small class="card text-white bg-dark">Resumen: {{p.resumen}}</small>
+                  <small class="card text-white bg-dark">Actores: {{p.actuaciones}}</small>
+                  <small class="card text-white bg-dark">Director: {{p.director}}</small>
+                  <small class="card text-white bg-dark">Año realización: {{p.año_realizacion}}</small>
+                </p>
+              </details>
+
+              <details>
+                <summary type="button" class="btn btn-warning btn-lg active" role="button">Comentarios</summary>
+                <p>                            
+                  {% for g in resenias %}          
+                    <div class="modal-body">
+                      {% if g.pelicula.id == p.id and g.aprobado == True %}
+                        <small class="card text-white bg-dark">
+                          <div class="grid text-left">
+                            <div class="g-col-6 g-col-md-4">Comentario: {{g.comentario}}</div>
+                            <div class="g-col-6 g-col-md-4">Email: {{g.mail}}</div>                                        
+                            <div class="g-col-6 g-col-md-4">Puntaje: {{g.puntaje}}</div>
+                          </div>
+                        </small>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </p>
+              </details>
             </div>
-          {% endfor %}
-          </div>
-        
-        <div class="modal-footer">                    
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
-    </div>
+    {% endfor %}
+  </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <p class="card-text"></p>
-        {% for p in peliculas%}    
-            <div class="col-sm-4 col-md-3">
-                <div class="card border-dark mb-2">
-                    <img class="card-img-top" src="{{ p.foto.url }}" alt="Card image cap">
-                    <div class="card-body">           
-                        <h4 class="card text-white bg-dark">{{p.nombre}}</h4>             
-                        <small class="card text-white bg-dark">Resumen: {{p.resumen}}</small>
-                        <small class="card text-white bg-dark">Actores: {{p.actuaciones}}</small>
-                        <small class="card text-white bg-dark">Director: {{p.director}}</small>
-                        <small class="card text-white bg-dark">Año realización: {{p.año_realizacion}}</small>
-                        <h4 class="card text-white bg-dark">Puntaje: {{p.puntaje}}</h4>
-                        
-
-
-
-                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#ModalCriticas">Críticas</button>
-                        <button type="button" class="btn btn-warning "><a href="{% url 'form' %}">Comentar</a></button>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
-
-<body style="background-color:grey">    
+<body style="background-color:black">    
 </body>
+
 
 </html>
