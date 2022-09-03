@@ -28,19 +28,12 @@ def pelis(request):
         peliculasListados = Pelicula.objects.filter(
             Q(nombre__icontains = busqueda)|
             Q(puntaje__icontains = busqueda)
-        ).distinct()
-    
-    #buscar = request.GET.get("buscarReseña")
-    #if buscar:
-    #    reseniasListados = Reseña.objects.filter(
-    #        Q(pelicula__icontains = buscar)
-    #    ).distinct()
-    
-    #reseniasListados = Reseña.objects.select_related().filter(pelicula__Id = peliculasListados)
-    
+            #|Q(actores__icontains = busqueda)
+
+        ).distinct()    
     reseniasListados = Reseña.objects.all()
-    
-    return render(request, "base.html", {"peliculas": peliculasListados, "resenias": reseniasListados},)
+    return render(request, "base.html", {"peliculas": peliculasListados, "resenias": reseniasListados,})
+
 
 def actore(request):
     busquedaActores = request.GET.get("buscarAct")
@@ -50,7 +43,8 @@ def actore(request):
             Q(nombre__icontains = busquedaActores)|
             Q(nacionalidad__icontains = busquedaActores)
         ).distinct()
-    return render(request, "actores.html", {"actores": actoresListados})
+    peliculasListados = Pelicula.objects.all()
+    return render(request, "actores.html", {"actores": actoresListados, "peliculas": peliculasListados})
 
 def directore(request):
     busquedaDirectores = request.GET.get("buscarDir")
@@ -60,4 +54,5 @@ def directore(request):
             Q(nombre__icontains = busquedaDirectores)|
             Q(nacionalidad__icontains = busquedaDirectores)
         ).distinct()
-    return render(request, "directores.html", {"directores": directoresListados})
+    peliculasListados = Pelicula.objects.all()
+    return render(request, "directores.html", {"directores": directoresListados, "peliculas": peliculasListados})

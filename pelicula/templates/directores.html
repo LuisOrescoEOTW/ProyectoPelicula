@@ -51,7 +51,18 @@
                         </small>
                         <small class="card text-white bg-dark">Nacionalidad: {{s.nacionalidad}}</small>
                         <small class="card text-white bg-dark">Fecha Nacimiento: {{s.año_nacimiento}}</small>
-                        <small class="card text-white bg-dark">Resumen: {{s.resumen}}</small>                   
+                        <small class="card text-white bg-dark">Resumen: {{s.resumen}}</small>
+                        
+                        <small class="card text-white bg-dark">Películas
+                            {% for pe in peliculas%}
+                                {% for ge in pe.getdirector%} 
+                                    {% if ge.nombre == s.nombre%}
+                                        <a href="/?buscar={{pe.nombre}}" >{{pe.nombre}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </small>
+
                     </div>
                 </div>
             </div>

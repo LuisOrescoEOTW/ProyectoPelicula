@@ -55,9 +55,13 @@
               <details>
                 <summary type="button" class="btn btn-primary btn-lg active foo" role="button" >Detalle</summary>
                 <p>                       
-                  <small class="card text-white bg-dark">Resumen: {{p.resumen}}</small>
-                  <small class="card text-white bg-dark">Actores: {{p.actuaciones}}</small>
-                  <small class="card text-white bg-dark">Director: {{p.director}}</small>
+                  <small class="card text-white bg-dark">Resumen: {{p.resumen}}</small>                  
+                  <small class="card text-white bg-dark">Actores: 
+                    {% for act in p.actuaciones %}  
+                      <a href="actores?buscarAct={{act}}" >{{act}}</a>
+                    {% endfor %}
+                  </small>                  
+                  <small class="card text-white bg-dark">Director: <a href="directores?buscarDir={{p.director}}" >{{p.director}}</a> </small>
                   <small class="card text-white bg-dark">Año realización: {{p.año_realizacion}}</small>
                 </p>
               </details>

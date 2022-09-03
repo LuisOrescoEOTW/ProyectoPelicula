@@ -6,6 +6,3 @@ class MyForm(forms.ModelForm):
         model = Reseña
         fields = ["pelicula", "comentario", "puntaje", "mail"]
         labels = {'pelicula': "Película", "comentario": "Comentario", "puntaje": "Puntaje", "mail": "@mail",}
-
-        
-

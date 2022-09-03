@@ -50,15 +50,22 @@ class Pelicula(models.Model):
     director = models.ForeignKey(Director, on_delete=models.RESTRICT)    
     puntaje = models.IntegerField(default = 1, validators=[MinValueValidator(1), MaxValueValidator(5)]) #Promedio
     
-
     def admin_foto(self):
         return mark_safe('<img src="{}" with="130" height="100" />'.format(self.foto.url))
     admin_foto.short_description = 'Foto'
     admin_foto.allow_tags = True
     
     def actuaciones(self):
-        return "; ".join([str(p) for p in self.actores.all()])
+        actoress=[]
+        for p in self.actores.all():
+            actoress.append(p)
+        return actoress
     actuaciones.short_description = 'actor/es'
+    
+    def getdirector(self):
+        directorr=[]
+        directorr.append(self.director)
+        return directorr
     
 
     class Meta():
